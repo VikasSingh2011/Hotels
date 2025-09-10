@@ -1,10 +1,12 @@
 const express = require('express')//this line tell that we need a exprees.
 const app = express();//here we store the express function in app.
 const db = require('./db');//db.js export data here using this command 
+require('dotenv').config();//this line tell that we use dotenv file in our project 
 
 //different person are send data in different format so we use body-parser is a middleware to parse the JSON data form the request body and convert into a JavaScript object that we can work with in our server.
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());//this line tell that we use body-parser in json format
+const PORT = process.env.PORT || 3000;//here we use env file PORT variable if PORT variable not found then they use 3000
 
 //after create personRoutes.js folder we not need this code in server.js
 //const Person =require('./models/Person');//here import the person.js file in server.js
@@ -100,7 +102,7 @@ const menuItemRoutes = require('./routes/menuItemRoutes');
 app.use('/person', personRoutes);//we use the personRoutes in server.js
 app.use('/menuItem', menuItemRoutes);//we use the menuItemRoutes in server.js
 
-app.listen(3000,()=>{//this is the location of the server
+app.listen(PORT,()=>{//this is the location of the server
   console.log('listening on port 3000');
 })
 
