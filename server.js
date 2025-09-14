@@ -1,20 +1,35 @@
 const express = require('express')//this line tell that we need a exprees.
 const app = express();//here we store the express function in app.
 const db = require('./db');//db.js export data here using this command 
-require('dotenv').config();//this line tell that we use dotenv file in our project 
+require('dotenv').config();//line tell that we use dotenv file in our project
+const passport = require('./auth');//this line tell that we use passport in our project 
 
 //different person are send data in different format so we use body-parser is a middleware to parse the JSON data form the request body and convert into a JavaScript object that we can work with in our server.
 const bodyParser = require('body-parser');
-app.use(bodyParser.json());//this line tell that we use body-parser in json format
+app.use(bodyParser.json());//line tell that we use body-parser in json format
 const PORT = process.env.PORT || 3000;//here we use env file PORT variable if PORT variable not found then they use 3000
+
+//Middleware function
+const logRequest = (req, res, next) =>{//this is a middleware function
+  console.log(`[${new Date().toLocaleString()}] Request Made to : ${req.originalUrl}`);//this line tell that which type of request made to which URL
+  next();//next() tell after this line they move to the next middleware function or we can say next phase
+}
 
 //after create personRoutes.js folder we not need this code in server.js
 //const Person =require('./models/Person');//here import the person.js file in server.js
 //after create menuItemRoutes.js folder we not need this code in server.js
 //const MenuItem = require('./models/MenuItem');//here import the MenuItem.js file in server.js
 
-app.get('/', function (req, res){//function have two parameter req and res.
-  res.send('Welcome to my hotel... How i can help you?')//function send res.here
+app.use(logRequest);//line tell we use logRequest middleware func in our project
+
+app.use(passport.initialize());//line tell that we use passport in our project
+//here we add password authentication in this command
+const localAuthMiddleware = passport.authenticate("local", { session: false });
+//this line tell that we use local strategy in our project and session is false
+
+
+app.get('/' ,function (req, res){//function have two parameter req and res.
+  res.send('Welcome to my Hotel')//function send res.here
 })
 
 //now we send the request to save the data

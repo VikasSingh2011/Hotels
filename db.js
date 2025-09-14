@@ -1,12 +1,11 @@
 const mongoose = require('mongoose');
 const Person = require('./models/Person');
 require('dotenv').config(); // Load environment variables from .env file
-
 //define the mongoDB connection URL
-//const mongoURL = 'mongodb://localhost:27017/hotels'//Replace 'hotels' with your database name. This mongoURL connect local database 
+const mongoURL = 'mongodb://localhost:27017/hotels'//Replace 'hotels' with your database name. This mongoURL connect local database 
 //const mongoURL = process.env.MONGODB_URL_LOCAL //this line tell that we use env file MONGODB_URL_LOCAL variable in our project
 //const mongoURL= 'mongodb+srv://singhvikas1004_db_user:vikas12345@cluster0.zqji7a0.mongodb.net/';//this mongoURL connect online database
-const mongoURL = process.env.MONGODB_URL;//this line tell that we use env file MONGODB_URL variable in our project
+//const mongoURL = process.env.MONGODB_URL;//this line tell that we use env file MONGODB_URL variable in our project
 
 
 
